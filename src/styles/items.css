@@ -1,0 +1,53 @@
+/* Inbox, tracker and item detail. */
+@layer components {
+  .add-link-form {
+    @apply flex flex-wrap gap-2;
+  }
+  .add-link-input {
+    @apply min-w-0 flex-1 py-3 text-base;
+  }
+  .add-link-message {
+    @apply w-full;
+  }
+  .filters {
+    @apply flex flex-wrap items-center justify-between gap-2;
+  }
+  .item-list {
+    @apply flex flex-col gap-3;
+  }
+  .item-card {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-center;
+  }
+  .item-card-main {
+    @apply flex min-w-0 flex-1 flex-col gap-1.5;
+  }
+  .item-card-badges {
+    @apply flex flex-wrap gap-1.5;
+  }
+  .item-title {
+    @apply font-semibold leading-snug no-underline;
+    overflow-wrap: anywhere;
+  }
+  .item-title:hover {
+    color: var(--color-primary);
+  }
+  .item-meta {
+    @apply flex flex-wrap gap-x-2 gap-y-0.5 text-xs;
+    color: var(--color-muted);
+  }
+  .item-source {
+    @apply no-underline;
+  }
+  .item-source:hover {
+    @apply underline;
+  }
+  .item-card-status {
+    @apply sm:w-40;
+  }
+  .item-hero {
+    @apply flex flex-col items-start gap-3;
+  }
+  .tracker-group {
+    @apply flex flex-col gap-3;
+  }
+}

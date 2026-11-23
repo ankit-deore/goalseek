@@ -1,0 +1,28 @@
+# Calls the reminder endpoint every hour so each person gets their daily
+# email at the time they picked. Needs two repository secrets:
+#   APP_URL      e.g. https://goalseek.vercel.app (no trailing slash)
+#   CRON_SECRET  same value as the CRON_SECRET env var in Vercel
+name: Daily reminders
+
+on:
+  schedule:
+    - cron: "5 * * * *" # every hour at :05 (UTC)
+  workflow_dispatch: {}
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Trigger reminder run
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "APP_URL or CRON_SECRET secret is not set yet; skipping."
+            exit 0
+          fi
+          curl --fail-with-body -sS -X POST \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$APP_URL/api/cron/reminders"

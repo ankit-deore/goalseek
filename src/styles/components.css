@@ -1,0 +1,190 @@
+/* Reusable building blocks: buttons, inputs, cards, badges, chips. */
+@layer components {
+  .stack {
+    @apply flex flex-col gap-6;
+  }
+  .stack-sm {
+    @apply flex flex-col gap-3;
+  }
+  .muted {
+    color: var(--color-muted);
+  }
+  .card {
+    @apply rounded-[var(--radius)] border p-4 sm:p-5;
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow);
+  }
+  .notice {
+    @apply rounded-[var(--radius)] p-4 text-sm;
+    background: var(--color-primary-soft);
+  }
+  .brand {
+    @apply text-lg font-bold tracking-tight no-underline;
+    color: var(--color-primary);
+  }
+  .page-title {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+  .section-title {
+    @apply text-lg font-semibold;
+  }
+  .subsection-title {
+    @apply text-base font-semibold;
+  }
+  .empty {
+    @apply rounded-[var(--radius)] border border-dashed p-8 text-center;
+    border-color: var(--color-border);
+    color: var(--color-muted);
+  }
+  .loading {
+    @apply py-8 text-center;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium no-underline transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-lg {
+    @apply px-5 py-3 text-base;
+  }
+  .btn-primary {
+    background: var(--color-primary);
+    color: #ffffff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+  }
+  .btn-secondary {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--color-primary-soft);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    color: var(--color-text);
+    background: var(--color-primary-soft);
+  }
+  .btn-danger {
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+  }
+  .google-mark {
+    @apply inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-sm font-bold;
+    color: #4285f4;
+  }
+
+  /* Form controls */
+  .input,
+  .select,
+  .textarea {
+    @apply w-full rounded-lg border px-3 py-2 text-sm;
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+  }
+  .input-mono {
+    @apply font-mono text-xs;
+  }
+  .textarea {
+    @apply leading-relaxed;
+    resize: vertical;
+  }
+  .field {
+    @apply flex flex-col gap-1.5;
+  }
+  .field-label {
+    @apply text-sm font-medium;
+    color: var(--color-muted);
+  }
+  .checkbox {
+    @apply flex items-center gap-2 text-sm;
+  }
+  .form-row {
+    @apply grid gap-3 sm:grid-cols-2;
+  }
+  .form-grid {
+    @apply grid gap-4 sm:grid-cols-2;
+  }
+  .field-wide {
+    @apply sm:col-span-2;
+  }
+  .form-actions {
+    @apply flex flex-wrap items-center gap-3;
+  }
+  .inline-form {
+    @apply flex flex-col gap-2 sm:flex-row;
+  }
+  .copy-field {
+    @apply flex gap-2;
+  }
+  .form-error {
+    @apply text-sm;
+    color: var(--color-danger);
+  }
+  .form-success {
+    @apply text-sm;
+    color: var(--color-success);
+  }
+
+  /* Badges and chips */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+  .badge-job { background: #dbeafe; color: #1d4ed8; }
+  .badge-certification { background: #fef3c7; color: #b45309; }
+  .badge-project { background: #dcfce7; color: #15803d; }
+  .badge-meetup { background: #fce7f3; color: #be185d; }
+  .badge-resource { background: #f1f5f9; color: #475569; }
+  .badge-status-new { background: #f1f5f9; color: #475569; }
+  .badge-status-interested { background: #e0e7ff; color: #4338ca; }
+  .badge-status-applied { background: #dbeafe; color: #1d4ed8; }
+  .badge-status-interview { background: #dcfce7; color: #15803d; }
+  .badge-status-rejected { background: #fee2e2; color: #b91c1c; }
+  .badge-status-skipped { background: #f1f5f9; color: #64748b; }
+  .badge-deadline-overdue { background: #fee2e2; color: #b91c1c; }
+  .badge-deadline-soon { background: #ffedd5; color: #c2410c; }
+  .badge-deadline-later { background: #f1f5f9; color: #475569; }
+
+  .chip-row {
+    @apply flex flex-wrap gap-2;
+  }
+  .chip {
+    @apply rounded-full border px-3 py-1 text-sm no-underline;
+    border-color: var(--color-border);
+    color: var(--color-muted);
+    background: var(--color-surface);
+  }
+  .chip-active {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+  }
+  .count {
+    @apply ml-1 text-sm font-normal;
+    color: var(--color-muted);
+  }
+
+  /* Simple rows (settings lists) */
+  .row-list {
+    @apply flex flex-col divide-y;
+    border-color: var(--color-border);
+  }
+  .row {
+    @apply flex flex-wrap items-center gap-3 py-2 text-sm;
+    border-color: var(--color-border);
+  }
+  .row-title {
+    @apply mr-auto font-medium;
+  }
+}

@@ -1,0 +1,48 @@
+/* App shell: header, navigation, main column. */
+@layer components {
+  .app-shell {
+    @apply min-h-screen;
+  }
+  .app-header {
+    @apply sticky top-0 z-10 border-b backdrop-blur;
+    background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    border-color: var(--color-border);
+  }
+  .app-header-inner {
+    @apply mx-auto flex max-w-4xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3;
+  }
+  .nav {
+    @apply order-3 flex w-full gap-1 sm:order-none sm:w-auto;
+  }
+  .nav-link {
+    @apply rounded-lg px-3 py-1.5 text-sm font-medium no-underline;
+    color: var(--color-muted);
+  }
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+  .nav-link-active {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+  }
+  .header-actions {
+    @apply ml-auto flex items-center gap-2;
+  }
+  .header-actions .select {
+    @apply w-auto max-w-48;
+  }
+  .workspace-name {
+    @apply text-sm;
+    color: var(--color-muted);
+  }
+  .app-main {
+    @apply mx-auto max-w-4xl px-4 py-6 pb-16;
+  }
+  .page-header {
+    @apply flex flex-col gap-1;
+  }
+  .back-link {
+    @apply text-sm no-underline;
+    color: var(--color-muted);
+  }
+}

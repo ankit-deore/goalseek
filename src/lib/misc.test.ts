@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { generateApiKey, hashApiKey, readApiKey } from "./api-keys";
 import { deadlineLabel, hourLabel, todayIn } from "./format";
 import { safeNextPath } from "@/config/routes";
+import { toSupabaseOrigin } from "@/config/public-env";
 
 describe("api keys", () => {
   it("stores only a hash, and the hash matches the key", () => {
@@ -39,5 +40,13 @@ describe("safeNextPath", () => {
     expect(safeNextPath("//evil.com")).toBe("/inbox");
     expect(safeNextPath("https://evil.com")).toBe("/inbox");
     expect(safeNextPath("/items/1")).toBe("/items/1");
+  });
+});
+
+describe("supabase url", () => {
+  it("keeps only the project origin", () => {
+    expect(toSupabaseOrigin("https://abcd.supabase.co")).toBe("https://abcd.supabase.co");
+    expect(toSupabaseOrigin(" https://abcd.supabase.co/rest/v1/ ")).toBe("https://abcd.supabase.co");
+    expect(() => toSupabaseOrigin("abcd.supabase.co")).toThrow();
   });
 });

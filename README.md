@@ -37,7 +37,7 @@ This takes about 30 minutes. You'll create four free accounts and copy a few val
 3. In the left menu, open **SQL Editor** and click **New query**.
 4. Open [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) in this repo, copy everything, paste it into the editor and click **Run**. You should see "Success. No rows returned".
 5. Open **Project Settings → API Keys** (older projects call it **API**). Copy these three values into your notes:
-   - **Project URL**, like `https://abcd1234.supabase.co`. It's also shown under **Project Settings → Data API**.
+   - **Project URL**, like `https://abcd1234.supabase.co`. It's also shown under **Project Settings → Data API**. Copy only this part, with nothing after `.supabase.co` (not `/rest/v1`).
    - **Publishable key**, starting `sb_publishable_`. On older projects use the **anon public** key.
    - **Secret key**, starting `sb_secret_`. On older projects use the **service_role** key. **Never share this one.**
 
@@ -92,6 +92,8 @@ You have two options:
    - **Redirect URLs**: add `https://YOUR-APP.vercel.app/**` and `http://localhost:3000/**`.
 
 Open your site and click **Continue with Google**. You should land in your inbox.
+
+**If sign-in shows `{"message":"No API key found in request"}`:** look at the address bar on that error page. It should start `https://YOUR-PROJECT.supabase.co/auth/v1/authorize`. If anything sits between `.supabase.co` and `/auth/v1` (such as `/rest/v1`), or the key is empty, fix `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in Vercel and redeploy. `NEXT_PUBLIC_` values are baked in at build time, so changing them only takes effect after a redeploy.
 
 ### Step 5: Turn on the hourly reminder check
 

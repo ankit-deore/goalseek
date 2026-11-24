@@ -1,12 +1,13 @@
 "use client";
 
 import { createBrowserClient } from "@supabase/ssr";
+import { publicEnv } from "@/config/public-env";
 import type { Database } from "@/types/database";
 
 /** Supabase client for Client Components (browser). */
 export function createClient() {
   return createBrowserClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    publicEnv.supabaseUrl,
+    publicEnv.supabasePublishableKey,
   );
 }

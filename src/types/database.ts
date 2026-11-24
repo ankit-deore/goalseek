@@ -150,6 +150,7 @@ export type Database = {
       is_workspace_owner: { Args: { ws: string }; Returns: boolean };
       create_workspace: { Args: { workspace_name: string }; Returns: string };
       accept_invite: { Args: { invite_token: string }; Returns: string };
+      ensure_my_setup: { Args: Record<string, never>; Returns: undefined };
       invite_preview: {
         Args: { invite_token: string };
         Returns: { workspace_name: string; expired: boolean }[];

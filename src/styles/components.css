@@ -196,4 +196,9 @@
     @apply text-xs;
     color: var(--color-muted);
   }
+
+  /* Error boundary inside the app shell */
+  .error-panel {
+    @apply mx-auto flex max-w-md flex-col items-start gap-3 py-12;
+  }
 }

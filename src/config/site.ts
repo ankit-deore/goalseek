@@ -136,6 +136,12 @@ export const copy = {
     heading: "Saving link…",
     noUrl: "No link was shared.",
   },
+  appError: {
+    heading: "Couldn't load this page",
+    body: "Something went wrong on our side. Try again in a moment.",
+    setupHint: "Setting up GoalSeek yourself? Make sure both SQL files in supabase/migrations have been run in the Supabase SQL Editor, then check the Vercel logs for this code:",
+    retry: "Try again",
+  },
   common: {
     signOut: "Sign out",
     signedInAs: "Signed in as",

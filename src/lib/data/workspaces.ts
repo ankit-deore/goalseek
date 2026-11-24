@@ -3,6 +3,7 @@ import { cache } from "react";
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import type { DbClient } from "./types";
+import { getMyProfile } from "./profile";
 import { requireUser } from "./session";
 
 export const WORKSPACE_COOKIE = "gs_workspace";
@@ -57,13 +58,11 @@ export async function listMembers(supabase: DbClient, workspaceId: string): Prom
 export const getCurrentWorkspace = cache(async () => {
   const user = await requireUser();
   const supabase = await createClient();
-  const [workspaces, cookieStore, profile] = await Promise.all([
-    listMyWorkspaces(supabase, user.id),
-    cookies(),
-    supabase.from("profiles").select("default_workspace_id").eq("id", user.id).single(),
-  ]);
+  // Load the profile first: it creates a missing profile and workspace.
+  const profile = await getMyProfile();
+  const [workspaces, cookieStore] = await Promise.all([listMyWorkspaces(supabase, user.id), cookies()]);
 
-  const wanted = cookieStore.get(WORKSPACE_COOKIE)?.value ?? profile.data?.default_workspace_id;
+  const wanted = cookieStore.get(WORKSPACE_COOKIE)?.value ?? profile.default_workspace_id;
   const current = workspaces.find((w) => w.id === wanted) ?? workspaces[0] ?? null;
   return { user, supabase, workspaces, current };
 });

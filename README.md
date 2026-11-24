@@ -36,8 +36,9 @@ This takes about 30 minutes. You'll create four free accounts and copy a few val
 2. Click **New project**. Name it `goalseek`, choose a strong database password (save it), and pick the region **Mumbai** (`ap-south-1`). Click **Create new project** and wait about 2 minutes.
 3. In the left menu, open **SQL Editor** and click **New query**.
 4. Open [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) in this repo, copy everything, paste it into the editor and click **Run**. You should see "Success. No rows returned".
+   Then click **New query** again and do the same with [`supabase/migrations/0002_grants_and_self_heal.sql`](supabase/migrations/0002_grants_and_self_heal.sql).
 5. Open **Project Settings → API Keys** (older projects call it **API**). Copy these three values into your notes:
-   - **Project URL**, like `https://abcd1234.supabase.co`. It's also shown under **Project Settings → Data API**.
+   - **Project URL**, like `https://abcd1234.supabase.co`. It's also shown under **Project Settings → Data API**. Copy only this part, with nothing after `.supabase.co` (not `/rest/v1`).
    - **Publishable key**, starting `sb_publishable_`. On older projects use the **anon public** key.
    - **Secret key**, starting `sb_secret_`. On older projects use the **service_role** key. **Never share this one.**
 
@@ -92,6 +93,10 @@ You have two options:
    - **Redirect URLs**: add `https://YOUR-APP.vercel.app/**` and `http://localhost:3000/**`.
 
 Open your site and click **Continue with Google**. You should land in your inbox.
+
+**If sign-in shows `{"message":"No API key found in request"}`:** look at the address bar on that error page. It should start `https://YOUR-PROJECT.supabase.co/auth/v1/authorize`. If anything sits between `.supabase.co` and `/auth/v1` (such as `/rest/v1`), or the key is empty, fix `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in Vercel and redeploy. `NEXT_PUBLIC_` values are baked in at build time, so changing them only takes effect after a redeploy.
+
+**If the inbox shows "This page couldn't load" after sign-in:** run both SQL files from Step 1 in the Supabase SQL Editor (0001 first, if you haven't yet, then 0002), and reload. If it still fails, open Vercel → your project → **Logs** and look for the red error line.
 
 ### Step 5: Turn on the hourly reminder check
 

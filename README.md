@@ -108,7 +108,7 @@ GitHub runs [`.github/workflows/reminders.yml`](.github/workflows/reminders.yml)
 
 - In **Settings → Workspaces**, create a workspace (e.g. "Job hunt crew") and click **Create invite link**. Send the link on WhatsApp. It works for 7 days.
 - **Android:** open the site in Chrome, then tap **⋮ → Add to Home screen**. After that, **Share → GoalSeek** from any app saves the link to your inbox.
-- **iPhone:** open the site in Safari, then tap **Share → Add to Home Screen**. The iOS Shortcut comes in a later step.
+- **iPhone:** open the site in Safari, then tap **Share → Add to Home Screen**. To save links from the Share menu, set up the [iPhone Shortcut](#iphone-shortcut).
 
 ---
 
@@ -135,6 +135,22 @@ curl -X POST https://YOUR-APP.vercel.app/api/capture \
 Responses: `201 {"status":"created","item":{...}}`, `200 {"status":"duplicate"}`, `401` for a bad key, `400` for a bad body.
 
 Only a SHA-256 hash of each key is stored. Revoke a key at any time in Settings.
+
+> Always call `https://YOUR-APP.vercel.app/api/capture`. Never call your Supabase URL (`https://xxxx.supabase.co/...`) from the extension or Shortcut. Supabase rejects it with `"No API key found in request"`, and the app's server is what checks your `gs_` key and saves the link.
+
+### iPhone Shortcut
+
+The same steps are shown in the app under **Settings → iPhone Shortcut**, with your capture endpoint ready to copy.
+
+1. In GoalSeek, open **Settings → Personal API keys**, create a key and copy it. Also copy the **Capture endpoint**.
+2. Open the **Shortcuts** app, tap **+**, tap the name at the top and choose **Details**. Turn on **Show in Share Sheet** and set it to receive **URLs** and **Text**.
+3. Add the action **Get Contents of URL** and paste the capture endpoint as the URL.
+4. Tap **Show More** and set **Method** to **POST**.
+5. Under **Headers**, add `Authorization` with the value `Bearer gs_your_key_here` (the word Bearer, a space, then your key).
+6. Set **Request Body** to **JSON**. Add a **Text** field named `text` and set its value to **Shortcut Input**.
+7. Optional: add **Show Notification** so you can see the result.
+
+Now **Share → (your shortcut name)** from Safari, LinkedIn or WhatsApp saves the link to your inbox.
 
 ---
 

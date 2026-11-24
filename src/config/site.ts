@@ -110,6 +110,21 @@ export const copy = {
       lastUsed: "Last used",
       never: "never",
       endpoint: "Capture endpoint",
+      endpointHelp: "Always send links to this address. Never use your Supabase URL here.",
+    },
+    shortcut: {
+      heading: "iPhone Shortcut",
+      sub: "Save a link from the iPhone Share menu in one tap. Set it up once in the Shortcuts app.",
+      steps: [
+        "Create an API key above and copy it.",
+        "Open the Shortcuts app, tap +, then tap the shortcut name at the top and choose Details. Turn on Show in Share Sheet, and set it to receive URLs and Text.",
+        "Add the action Get Contents of URL. Paste the capture endpoint above as the URL.",
+        "Tap Show More. Set Method to POST.",
+        "Under Headers, add Authorization with the value Bearer followed by a space and your key (for example Bearer gs_abc123).",
+        "Set Request Body to JSON. Add a Text field named text and set its value to Shortcut Input.",
+        "Optional: add Show Notification after it, so you see that the link was saved.",
+      ],
+      warning: "If you see \"No API key found in request\", the shortcut is calling your Supabase URL. Change the URL to the capture endpoint above.",
     },
   },
   join: {

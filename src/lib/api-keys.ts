@@ -15,10 +15,14 @@ export function hashApiKey(key: string): string {
   return createHash("sha256").update(key).digest("hex");
 }
 
-/** Read "Authorization: Bearer gs_..." (or an x-api-key header). */
+/**
+ * Read "Authorization: Bearer gs_..." or an x-api-key header. A bare
+ * "Authorization: gs_..." is accepted too, since it's an easy slip when
+ * typing headers into an iPhone Shortcut.
+ */
 export function readApiKey(headers: Headers): string | null {
-  const auth = headers.get("authorization");
-  const fromAuth = auth?.match(/^Bearer\s+(\S+)$/i)?.[1];
-  const key = fromAuth ?? headers.get("x-api-key");
+  const auth = headers.get("authorization")?.trim();
+  const fromAuth = auth?.match(/^(?:Bearer\s+)?(\S+)$/i)?.[1];
+  const key = fromAuth ?? headers.get("x-api-key")?.trim();
   return key && key.startsWith(KEY_PREFIX) ? key : null;
 }

@@ -14,6 +14,7 @@ describe("api keys", () => {
   it("reads Bearer and x-api-key headers", () => {
     expect(readApiKey(new Headers({ authorization: "Bearer gs_abc" }))).toBe("gs_abc");
     expect(readApiKey(new Headers({ "x-api-key": "gs_abc" }))).toBe("gs_abc");
+    expect(readApiKey(new Headers({ authorization: "gs_abc" }))).toBe("gs_abc");
     expect(readApiKey(new Headers({ authorization: "Bearer nope" }))).toBeNull();
   });
 });

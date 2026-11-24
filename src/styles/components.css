@@ -187,4 +187,13 @@
   .row-title {
     @apply mr-auto font-medium;
   }
+
+  /* Numbered how-to steps (settings guides) */
+  .steps-list {
+    @apply flex list-decimal flex-col gap-2 pl-5 text-sm;
+  }
+  .field-help {
+    @apply text-xs;
+    color: var(--color-muted);
+  }
 }

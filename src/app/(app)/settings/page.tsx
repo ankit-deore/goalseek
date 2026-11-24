@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { copy, site } from "@/config/site";
-import { publicEnv } from "@/config/public-env";
 import { revokeApiKeyAction } from "@/app/actions/settings";
 import { leaveWorkspaceAction, switchWorkspaceAction } from "@/app/actions/workspaces";
 import { SubmitButton } from "@/components/submit-button";
 import { ApiKeyForm } from "@/components/settings/api-key-form";
 import { CopyField } from "@/components/settings/copy-field";
 import { ReminderForm } from "@/components/settings/reminder-form";
+import { ShortcutGuide } from "@/components/settings/shortcut-guide";
 import { CreateWorkspaceForm, InviteForm } from "@/components/settings/workspace-forms";
 import { getMyProfile } from "@/lib/data/profile";
 import { getCurrentWorkspace, listMembers } from "@/lib/data/workspaces";
 import { timeAgo } from "@/lib/format";
+import { getRequestOrigin } from "@/lib/site-origin";
 
 export const metadata: Metadata = { title: `${copy.settings.heading} · ${site.name}` };
 
@@ -28,6 +29,7 @@ export default async function SettingsPage() {
       .order("created_at", { ascending: false }),
   ]);
   const timezones = Intl.supportedValuesOf("timeZone");
+  const captureEndpoint = `${await getRequestOrigin()}/api/capture`;
 
   return (
     <div className="stack">
@@ -99,7 +101,8 @@ export default async function SettingsPage() {
         </div>
         <div className="stack-sm">
           <span className="field-label">{t.apiKeys.endpoint}</span>
-          <CopyField value={`${publicEnv.siteUrl}/api/capture`} label={t.apiKeys.endpoint} />
+          <CopyField value={captureEndpoint} label={t.apiKeys.endpoint} />
+          <p className="field-help">{t.apiKeys.endpointHelp}</p>
         </div>
         <ApiKeyForm />
         {(keys.data ?? []).length > 0 && (
@@ -119,6 +122,14 @@ export default async function SettingsPage() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="card stack">
+        <div>
+          <h2 className="section-title">{t.shortcut.heading}</h2>
+          <p className="muted">{t.shortcut.sub}</p>
+        </div>
+        <ShortcutGuide />
       </section>
     </div>
   );
